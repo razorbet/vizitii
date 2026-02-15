@@ -1,0 +1,26 @@
+name: Deploy to Reg.ru
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    name: 🚀 Deploy to FTP
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🔀 Checkout
+        uses: actions/checkout@v4
+
+      - name: 📂 Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./
+          server-dir: /www/vizitii.ru/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/README.md
