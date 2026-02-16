@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ВизитИИ — Личный кабинет</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="cabinet.css">
+</head>
+
+<body>
+    <!-- ========== AUTH SCREENS ========== -->
+    <div id="auth-screen" class="auth-screen">
+        <div class="auth-card">
+            <div class="auth-logo">
+                <span class="logo-icon">🤖</span>
+                <h1>ВизитИИ</h1>
+                <p class="auth-subtitle">AI-администратор для вашего бизнеса</p>
+            </div>
+
+            <!-- Login Form -->
+            <form id="login-form" class="auth-form" onsubmit="return false;">
+                <h2>Вход</h2>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="login-email" placeholder="email@company.ru" required>
+                </div>
+                <div class="form-group">
+                    <label>Пароль</label>
+                    <input type="password" id="login-password" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn-primary" onclick="handleLogin()">Войти</button>
+                <p class="auth-switch">Нет аккаунта? <a href="#" onclick="showRegister()">Зарегистрироваться</a></p>
+                <div id="login-error" class="error-msg hidden"></div>
+            </form>
+
+            <!-- Register Form -->
+            <form id="register-form" class="auth-form hidden" onsubmit="return false;">
+                <h2>Регистрация</h2>
+                <div class="form-group">
+                    <label>Название компании</label>
+                    <input type="text" id="reg-company" placeholder="Салон Аврора" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="reg-email" placeholder="email@company.ru" required>
+                </div>
+                <div class="form-group">
+                    <label>Телефон</label>
+                    <input type="tel" id="reg-phone" placeholder="+7 (999) 123-45-67" required>
+                </div>
+                <div class="form-group">
+                    <label>Пароль</label>
+                    <input type="password" id="reg-password" placeholder="Минимум 6 символов" required>
+                </div>
+                <button type="submit" class="btn-primary" onclick="handleRegister()">Создать аккаунт</button>
+                <p class="auth-switch">Уже есть аккаунт? <a href="#" onclick="showLogin()">Войти</a></p>
+                <div id="register-error" class="error-msg hidden"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ========== DASHBOARD ========== -->
+    <div id="dashboard" class="dashboard hidden">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <span>🤖</span> ВизитИИ
+            </div>
+            <nav class="sidebar-nav">
+                <button class="nav-item active" data-section="overview" onclick="showSection('overview')">
+                    📊 Обзор
+                </button>
+                <button class="nav-item" data-section="staff" onclick="showSection('staff')">
+                    👥 Сотрудники
+                </button>
+                <button class="nav-item" data-section="services" onclick="showSection('services')">
+                    📋 Услуги
+                </button>
+                <button class="nav-item" data-section="schedule" onclick="showSection('schedule')">
+                    🕐 Расписание
+                </button>
+                <button class="nav-item" data-section="bookings" onclick="showSection('bookings')">
+                    📅 Записи
+                </button>
+                <button class="nav-item" data-section="feedback" onclick="showSection('feedback')">
+                    💬 Отзывы
+                </button>
+                <button class="nav-item" data-section="support" onclick="showSection('support')">
+                    📨 Обращения
+                </button>
+                <button class="nav-item" data-section="settings" onclick="showSection('settings')">
+                    ⚙️ Настройки
+                </button>
+            </nav>
+            <div class="sidebar-footer">
+                <button class="nav-item logout" onclick="handleLogout()">🚪 Выйти</button>
+            </div>
+        </aside>
+
+        <!-- Main content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="top-bar">
+                <div class="top-bar-left">
+                    <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+                    <h2 id="section-title">Обзор</h2>
+                </div>
+                <div class="top-bar-right">
+                    <span id="owner-name" class="owner-name"></span>
+                    <div class="mode-toggle" id="mode-toggle">
+                        <button class="mode-btn active" data-mode="team" onclick="setMode('team')">👥 Команда</button>
+                        <button class="mode-btn" data-mode="solo" onclick="setMode('solo')">👤 Частный мастер</button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Sections -->
+            <div class="content-area">
+
+                <!-- Overview -->
+                <section id="section-overview" class="section">
+                    <div class="stats-grid">
+                        <div class="stat-card accent-purple">
+                            <div class="stat-icon">📅</div>
+                            <div class="stat-value" id="stat-bookings-today">0</div>
+                            <div class="stat-label">Записей сегодня</div>
+                        </div>
+                        <div class="stat-card accent-blue">
+                            <div class="stat-icon">👥</div>
+                            <div class="stat-value" id="stat-staff-count">0</div>
+                            <div class="stat-label">Сотрудников</div>
+                        </div>
+                        <div class="stat-card accent-green">
+                            <div class="stat-icon">📋</div>
+                            <div class="stat-value" id="stat-services-count">0</div>
+                            <div class="stat-label">Услуг</div>
+                        </div>
+                        <div class="stat-card accent-orange">
+                            <div class="stat-icon">💬</div>
+                            <div class="stat-value" id="stat-feedback-count">0</div>
+                            <div class="stat-label">Отзывов</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>🔗 Ссылка для клиентов</h3>
+                        <div class="link-share">
+                            <input type="text" id="bot-link" readonly class="link-input">
+                            <button class="btn-copy" onclick="copyLink()">📋 Скопировать</button>
+                        </div>
+                        <p class="hint">Поделитесь этой ссылкой с клиентами — они попадут в вашего AI-администратора</p>
+                    </div>
+                </section>
+
+                <!-- Staff -->
+                <section id="section-staff" class="section hidden">
+                    <div class="section-header">
+                        <h3>👥 Сотрудники</h3>
+                        <button class="btn-primary btn-sm" onclick="showAddStaff()">+ Добавить</button>
+                    </div>
+                    <div id="staff-list" class="items-list"></div>
+
+                    <!-- Add Staff Modal -->
+                    <div id="modal-staff" class="modal hidden">
+                        <div class="modal-content">
+                            <h3 id="staff-modal-title">Добавить сотрудника</h3>
+                            <div class="form-group">
+                                <label>Имя</label>
+                                <input type="text" id="staff-name" placeholder="Анна Смирнова">
+                            </div>
+                            <div class="form-group">
+                                <label>Направление / Должность</label>
+                                <input type="text" id="staff-role" placeholder="Стилист, Массажист...">
+                            </div>
+                            <div class="modal-actions">
+                                <button class="btn-secondary" onclick="closeModal('modal-staff')">Отмена</button>
+                                <button class="btn-primary" onclick="saveStaff()">Сохранить</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Services -->
+                <section id="section-services" class="section hidden">
+                    <div class="section-header">
+                        <h3>📋 Услуги</h3>
+                        <button class="btn-primary btn-sm" onclick="showAddService()">+ Добавить</button>
+                    </div>
+                    <div id="services-list" class="items-list"></div>
+
+                    <!-- Add Service Modal -->
+                    <div id="modal-service" class="modal hidden">
+                        <div class="modal-content">
+                            <h3>Добавить услугу</h3>
+                            <div class="form-group">
+                                <label>Название</label>
+                                <input type="text" id="service-name" placeholder="Стрижка женская">
+                            </div>
+                            <div class="form-group">
+                                <label>Описание</label>
+                                <input type="text" id="service-desc" placeholder="Мытьё, стрижка, укладка">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Цена (₽)</label>
+                                    <input type="number" id="service-price" placeholder="2500" min="0">
+                                </div>
+                                <div class="form-group">
+                                    <label>Длительность (мин)</label>
+                                    <input type="number" id="service-duration" placeholder="60" min="5">
+                                </div>
+                            </div>
+                            <div class="modal-actions">
+                                <button class="btn-secondary" onclick="closeModal('modal-service')">Отмена</button>
+                                <button class="btn-primary" onclick="saveService()">Сохранить</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Schedule -->
+                <section id="section-schedule" class="section hidden">
+                    <div class="section-header">
+                        <h3>🕐 Расписание</h3>
+                        <button class="btn-primary btn-sm" onclick="showAddSchedule()">+ Добавить</button>
+                    </div>
+                    <div id="schedule-list" class="items-list"></div>
+
+                    <!-- Add Schedule Modal -->
+                    <div id="modal-schedule" class="modal hidden">
+                        <div class="modal-content">
+                            <h3>Добавить расписание</h3>
+                            <div class="form-group" id="schedule-staff-group">
+                                <label>Сотрудник</label>
+                                <select id="schedule-staff-select">
+                                    <option value="">— Общее расписание бизнеса —</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>День недели</label>
+                                <select id="schedule-day">
+                                    <option value="0">Понедельник</option>
+                                    <option value="1">Вторник</option>
+                                    <option value="2">Среда</option>
+                                    <option value="3">Четверг</option>
+                                    <option value="4">Пятница</option>
+                                    <option value="5">Суббота</option>
+                                    <option value="6">Воскресенье</option>
+                                </select>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Начало</label>
+                                    <input type="time" id="schedule-start" value="09:00">
+                                </div>
+                                <div class="form-group">
+                                    <label>Конец</label>
+                                    <input type="time" id="schedule-end" value="18:00">
+                                </div>
+                            </div>
+                            <div class="modal-actions">
+                                <button class="btn-secondary" onclick="closeModal('modal-schedule')">Отмена</button>
+                                <button class="btn-primary" onclick="saveSchedule()">Сохранить</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Bookings -->
+                <section id="section-bookings" class="section hidden">
+                    <div class="section-header">
+                        <h3>📅 Записи</h3>
+                        <div class="filters">
+                            <input type="date" id="bookings-date-filter" onchange="loadBookings()">
+                            <select id="bookings-staff-filter" onchange="loadBookings()">
+                                <option value="">Все сотрудники</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Calendar view for Team mode -->
+                    <div id="calendar-view" class="calendar-view"></div>
+                    <!-- List view for Solo mode -->
+                    <div id="bookings-list" class="items-list"></div>
+                </section>
+
+                <!-- Feedback -->
+                <section id="section-feedback" class="section hidden">
+                    <div class="section-header">
+                        <h3>💬 Что хотят клиенты</h3>
+                    </div>
+                    <div id="feedback-list" class="items-list"></div>
+                </section>
+
+                <!-- Support Tickets -->
+                <section id="section-support" class="section hidden">
+                    <div class="section-header">
+                        <h3>📨 Обращения в поддержку</h3>
+                        <div class="support-filters">
+                            <button class="filter-btn active" data-filter="new" onclick="filterSupport('new')">🆕
+                                Новые</button>
+                            <button class="filter-btn" data-filter="groups" onclick="filterSupport('groups')">📂
+                                Группы</button>
+                            <button class="filter-btn" data-filter="resolved" onclick="filterSupport('resolved')">✅
+                                Решённые</button>
+                            <button class="filter-btn" data-filter="all" onclick="filterSupport('all')">📋 Все</button>
+                        </div>
+                    </div>
+                    <div id="support-stats" class="support-stats"></div>
+                    <div id="support-content" class="items-list"></div>
+
+                    <!-- Resolve Group Modal -->
+                    <div id="modal-resolve" class="modal hidden">
+                        <div class="modal-content">
+                            <h3>✅ Уведомить пользователей</h3>
+                            <p class="hint">Опишите, как была решена проблема. Это сообщение будет отправлено всем
+                                пользователям группы.</p>
+                            <div class="form-group">
+                                <label>Группа</label>
+                                <input type="text" id="resolve-group-key" readonly class="link-input">
+                            </div>
+                            <div class="form-group">
+                                <label>Сообщение пользователям</label>
+                                <textarea id="resolve-note" rows="3"
+                                    placeholder="Проблема исправлена в обновлении..."></textarea>
+                            </div>
+                            <div class="modal-actions">
+                                <button class="btn-secondary" onclick="closeModal('modal-resolve')">Отмена</button>
+                                <button class="btn-primary" onclick="submitResolveGroup()">📩 Отправить и
+                                    закрыть</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Settings -->
+                <section id="section-settings" class="section hidden">
+                    <div class="card">
+                        <h3>⚙️ Настройки бизнеса</h3>
+                        <div class="form-group">
+                            <label>Название</label>
+                            <input type="text" id="settings-name">
+                        </div>
+                        <div class="form-group">
+                            <label>Описание</label>
+                            <textarea id="settings-desc" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Адрес</label>
+                            <input type="text" id="settings-address">
+                        </div>
+                        <div class="form-group">
+                            <label>Телефон</label>
+                            <input type="tel" id="settings-phone">
+                        </div>
+                        <div class="form-group">
+                            <label>Приветственное сообщение AI</label>
+                            <textarea id="settings-welcome" rows="3"
+                                placeholder="Что скажет бот при первом обращении клиента"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Основной цвет</label>
+                            <input type="color" id="settings-color" value="#6C5CE7">
+                        </div>
+                        <button class="btn-primary" onclick="saveSettings()">💾 Сохранить</button>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Feedback floating button -->
+    <button id="feedback-fab" class="feedback-fab" onclick="showFeedbackForm()">
+        💡 Расскажите, что улучшить!
+    </button>
+
+    <!-- Feedback modal -->
+    <div id="modal-feedback" class="modal hidden">
+        <div class="modal-content feedback-modal">
+            <h3>💡 Обратная связь</h3>
+            <p class="hint">Помогите нам стать лучше! Расскажите, что вам нравится или что можно улучшить.</p>
+            <div class="feedback-types">
+                <button class="feedback-type-btn active" data-type="idea" onclick="selectFeedbackType('idea')">💡
+                    Идея</button>
+                <button class="feedback-type-btn" data-type="bug" onclick="selectFeedbackType('bug')">🐛 Баг</button>
+                <button class="feedback-type-btn" data-type="inconvenient"
+                    onclick="selectFeedbackType('inconvenient')">😤 Неудобно</button>
+            </div>
+            <div class="form-group">
+                <textarea id="feedback-text" rows="4" placeholder="Опишите вашу идею или проблему..."></textarea>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="closeModal('modal-feedback')">Отмена</button>
+                <button class="btn-primary" onclick="submitFeedback()">📩 Отправить</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="cabinet.js"></script>
+</body>
+
+</html>
