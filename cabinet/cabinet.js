@@ -10,6 +10,64 @@ let businessData = null;
 let staffList = [];
 let currentMode = localStorage.getItem('vizitii_mode') || 'team';
 let selectedFeedbackType = 'idea';
+let isDemo = localStorage.getItem('vizitii_demo') === 'true';
+
+// ============================================================
+// Demo Mode Data
+// ============================================================
+
+const DEMO_DATA = {
+    owner: {
+        id: 1,
+        email: 'demo@vizitii.ru',
+        company_name: 'Салон «Аврора» (демо)',
+        phone: '+7 (999) 123-45-67',
+        business_id: 1
+    },
+    business: {
+        id: 1,
+        slug: 'aurora-demo',
+        name: 'Салон красоты «Аврора»',
+        description: 'Премиальный салон красоты в центре Москвы. Стрижки, окрашивание, маникюр, косметология.',
+        address: 'г. Москва, ул. Тверская, д. 15',
+        phone: '+7 (999) 123-45-67',
+        welcome_message: 'Здравствуйте! Добро пожаловать в салон «Аврора». Чем могу помочь?',
+        primary_color: '#4F46E5'
+    },
+    staff: [
+        { id: 1, name: 'Анна Смирнова', role: 'Стилист-колорист', is_active: true },
+        { id: 2, name: 'Мария Петрова', role: 'Мастер маникюра', is_active: true },
+        { id: 3, name: 'Елена Козлова', role: 'Косметолог', is_active: true }
+    ],
+    services: [
+        { id: 1, name: 'Женская стрижка', description: 'Мытьё, стрижка, укладка', price: 3500, duration_minutes: 60, is_active: true },
+        { id: 2, name: 'Окрашивание', description: 'Профессиональное окрашивание', price: 6000, duration_minutes: 120, is_active: true },
+        { id: 3, name: 'Маникюр с покрытием', description: 'Маникюр + гель-лак', price: 2500, duration_minutes: 90, is_active: true },
+        { id: 4, name: 'Чистка лица', description: 'Ультразвуковая чистка', price: 4000, duration_minutes: 60, is_active: true }
+    ],
+    schedule: [
+        { id: 1, staff_name: 'Анна Смирнова', day_of_week: 0, start_time: '09:00', end_time: '18:00' },
+        { id: 2, staff_name: 'Анна Смирнова', day_of_week: 1, start_time: '09:00', end_time: '18:00' },
+        { id: 3, staff_name: 'Мария Петрова', day_of_week: 0, start_time: '10:00', end_time: '19:00' },
+        { id: 4, staff_name: 'Мария Петрова', day_of_week: 2, start_time: '10:00', end_time: '19:00' },
+        { id: 5, staff_name: 'Елена Козлова', day_of_week: 1, start_time: '11:00', end_time: '20:00' },
+        { id: 6, staff_name: 'Елена Козлова', day_of_week: 3, start_time: '11:00', end_time: '20:00' }
+    ],
+    bookings: [
+        { id: 1, client_name: 'Ольга И.', service_name: 'Женская стрижка', staff_name: 'Анна Смирнова', date: new Date().toISOString().split('T')[0], time: '10:00', status: 'confirmed' },
+        { id: 2, client_name: 'Татьяна М.', service_name: 'Маникюр с покрытием', staff_name: 'Мария Петрова', date: new Date().toISOString().split('T')[0], time: '11:30', status: 'pending' },
+        { id: 3, client_name: 'Ирина К.', service_name: 'Окрашивание', staff_name: 'Анна Смирнова', date: new Date().toISOString().split('T')[0], time: '14:00', status: 'confirmed' },
+        { id: 4, client_name: 'Наталья С.', service_name: 'Чистка лица', staff_name: 'Елена Козлова', date: new Date().toISOString().split('T')[0], time: '15:00', status: 'pending' }
+    ],
+    feedback: [
+        { id: 1, feedback_type: 'idea', text: 'Было бы удобно получать напоминания за день до визита', source: 'telegram', created_at: new Date(Date.now() - 86400000).toISOString() },
+        { id: 2, feedback_type: 'idea', text: 'Добавьте возможность выбирать мастера по фото работ', source: 'cabinet', created_at: new Date(Date.now() - 172800000).toISOString() }
+    ]
+};
+
+function demoResponse(data) {
+    return { ok: true, json: async () => JSON.parse(JSON.stringify(data)) };
+}
 
 // ============================================================
 // Init
@@ -52,6 +110,16 @@ async function handleLogin() {
         return;
     }
 
+    // Demo mode
+    if (email === 'demo@vizitii.ru' && password === 'demo123') {
+        isDemo = true;
+        token = 'demo-token';
+        localStorage.setItem('vizitii_token', token);
+        localStorage.setItem('vizitii_demo', 'true');
+        checkAuth();
+        return;
+    }
+
     try {
         const res = await fetch(`${API}/api/auth/login`, {
             method: 'POST',
@@ -67,6 +135,8 @@ async function handleLogin() {
 
         token = data.access_token;
         localStorage.setItem('vizitii_token', token);
+        localStorage.setItem('vizitii_demo', 'false');
+        isDemo = false;
         checkAuth();
     } catch (err) {
         showError(errorEl, 'Ошибка подключения к серверу');
@@ -112,6 +182,18 @@ async function handleRegister() {
 }
 
 async function checkAuth() {
+    if (isDemo) {
+        ownerData = DEMO_DATA.owner;
+        businessData = DEMO_DATA.business;
+        staffList = [...DEMO_DATA.staff];
+        document.getElementById('owner-name').textContent = ownerData.company_name;
+        document.getElementById('auth-screen').classList.add('hidden');
+        document.getElementById('dashboard').classList.remove('hidden');
+        setMode(currentMode);
+        showSection('overview');
+        return;
+    }
+
     try {
         const res = await apiFetch('/api/auth/me');
         if (!res.ok) {
@@ -143,7 +225,9 @@ function handleLogout() {
     token = null;
     ownerData = null;
     businessData = null;
+    isDemo = false;
     localStorage.removeItem('vizitii_token');
+    localStorage.removeItem('vizitii_demo');
     showAuthScreen();
 }
 
@@ -152,6 +236,23 @@ function handleLogout() {
 // ============================================================
 
 async function apiFetch(url, options = {}) {
+    // Demo mode: return mock data
+    if (isDemo) {
+        if (url.includes('/api/auth/me')) return demoResponse(DEMO_DATA.owner);
+        if (url.includes('/api/owner/business')) return demoResponse(DEMO_DATA.business);
+        if (url.includes('/api/owner/staff')) return demoResponse(DEMO_DATA.staff);
+        if (url.includes('/api/owner/services')) return demoResponse(DEMO_DATA.services);
+        if (url.includes('/api/owner/schedule')) return demoResponse(DEMO_DATA.schedule);
+        if (url.includes('/api/owner/bookings')) return demoResponse(DEMO_DATA.bookings);
+        if (url.includes('/api/feedback')) return demoResponse(DEMO_DATA.feedback);
+        if (url.includes('/api/support-tickets')) return demoResponse([]);
+        // For POST/PATCH/DELETE in demo — just return ok
+        if (options.method && options.method !== 'GET') {
+            return demoResponse({ ok: true, message: 'Демо-режим: изменения не сохраняются' });
+        }
+        return demoResponse([]);
+    }
+
     const res = await fetch(`${API}${url}`, {
         ...options,
         headers: {
