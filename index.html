@@ -1,16 +1,30 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ВизитИИ — AI-администратор для сферы услуг. Автоматическая запись клиентов, управление расписанием, работа 24/7. Безопасно и по закону РФ.">
-    <meta name="keywords" content="AI администратор, запись клиентов, автоматизация салона, CRM клиника, бот записи, ВизитИИ">
+    <meta name="description"
+        content="ВизитИИ — AI-администратор для сферы услуг. Автоматическая запись клиентов, управление расписанием, работа 24/7. Безопасно и по закону РФ.">
+    <meta name="keywords"
+        content="AI администратор, запись клиентов, автоматизация салона, CRM клиника, бот записи, ВизитИИ">
+    <meta name="theme-color" content="#4F46E5">
+    <!-- OpenGraph -->
+    <meta property="og:title" content="ВизитИИ — AI-Администратор для вашего бизнеса">
+    <meta property="og:description"
+        content="Цифровой администратор на основе ИИ. Записывает клиентов, отвечает на вопросы и управляет расписанием 24/7. Соответствует 152-ФЗ.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vizitii.ru">
+    <meta property="og:locale" content="ru_RU">
     <title>ВизитИИ — AI-Администратор для вашего бизнеса</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
@@ -37,34 +51,40 @@
     <!-- Hero -->
     <section class="hero" id="hero">
         <div class="hero-bg">
-            <div class="hero-orb hero-orb-1"></div>
-            <div class="hero-orb hero-orb-2"></div>
-            <div class="hero-orb hero-orb-3"></div>
+            <div class="hero-mesh"></div>
+            <div class="hero-grid-overlay"></div>
         </div>
         <div class="container hero-content">
-            <div class="hero-badge">🤖 AI-Администратор нового поколения</div>
+            <div class="hero-badge">
+                <span class="hero-badge-dot"></span>
+                AI-Администратор нового поколения
+            </div>
             <h1>Ваш бизнес работает<br><span class="gradient-text">даже когда вы спите</span></h1>
-            <p class="hero-subtitle">ВизитИИ — цифровой администратор на основе искусственного интеллекта. Записывает клиентов, отвечает на вопросы и управляет расписанием 24/7.</p>
+            <p class="hero-subtitle">ВизитИИ — цифровой администратор на основе искусственного интеллекта. Записывает
+                клиентов, отвечает на вопросы и управляет расписанием 24/7.</p>
             <div class="hero-actions">
                 <a href="#pricing" class="btn btn-primary btn-lg">
                     <span>Начать бесплатно</span>
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10h12m0 0l-4-4m4 4l-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M4 10h12m0 0l-4-4m4 4l-4 4" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
                 </a>
                 <a href="#how-it-works" class="btn btn-ghost btn-lg">Как это работает</a>
             </div>
             <div class="hero-stats">
                 <div class="stat">
-                    <span class="stat-value">24/7</span>
+                    <span class="stat-value" data-counter="24/7">24/7</span>
                     <span class="stat-label">Без выходных</span>
                 </div>
                 <div class="stat-divider"></div>
                 <div class="stat">
-                    <span class="stat-value">&lt;3 сек</span>
+                    <span class="stat-value" data-counter="<3 сек">&lt;3 сек</span>
                     <span class="stat-label">Время ответа</span>
                 </div>
                 <div class="stat-divider"></div>
                 <div class="stat">
-                    <span class="stat-value">152-ФЗ</span>
+                    <span class="stat-value" data-counter="152-ФЗ">152-ФЗ</span>
                     <span class="stat-label">Соответствует</span>
                 </div>
             </div>
@@ -79,26 +99,29 @@
                 <h2>Проблемы, которые <span class="gradient-text">съедают вашу прибыль</span></h2>
             </div>
             <div class="problems-grid">
-                <div class="problem-card" data-reveal>
+                <div class="problem-card" data-reveal="left">
                     <div class="problem-icon">📞</div>
                     <h3>Потеря клиентов</h3>
-                    <p>Администратор занят — клиент ушёл к конкуренту. Пропущенный звонок = потерянные деньги. Каждый 3-й клиент не перезванивает.</p>
+                    <p>Администратор занят — клиент ушёл к конкуренту. Пропущенный звонок = потерянные деньги. Каждый
+                        3-й клиент не перезванивает.</p>
                 </div>
                 <div class="problem-card" data-reveal>
                     <div class="problem-icon">🤖</div>
                     <h3>«Пластиковые» боты</h3>
-                    <p>Стандартные чат-боты раздражают клиентов шаблонными ответами. Люди хотят человеческого общения, а не «Нажмите 1 для записи».</p>
+                    <p>Стандартные чат-боты раздражают клиентов шаблонными ответами. Люди хотят человеческого общения, а
+                        не «Нажмите 1 для записи».</p>
                 </div>
-                <div class="problem-card" data-reveal>
+                <div class="problem-card" data-reveal="right">
                     <div class="problem-icon">⚖️</div>
                     <h3>Юридические риски</h3>
-                    <p>Использование ChatGPT и зарубежных сервисов несёт риски по 152-ФЗ. Данные клиентов не должны покидать территорию РФ.</p>
+                    <p>Использование ChatGPT и зарубежных сервисов несёт риски по 152-ФЗ. Данные клиентов не должны
+                        покидать территорию РФ.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Solution -->
+    <!-- Solution (Bento Grid) -->
     <section class="solution" id="solution">
         <div class="container">
             <div class="section-header">
@@ -106,29 +129,94 @@
                 <h2>Один сотрудник, который <span class="gradient-text">никогда не устаёт</span></h2>
             </div>
             <div class="features-grid">
-                <div class="feature-card" data-reveal>
+                <div class="feature-card bento-main" data-reveal="left">
                     <div class="feature-number">01</div>
                     <div class="feature-icon-wrap">
                         <div class="feature-icon">💬</div>
                     </div>
                     <h3>Живой диалог</h3>
-                    <p>Общается как настоящий администратор: с эмпатией, на «Вы», с заботой о клиенте. Никаких шаблонов.</p>
+                    <p>Общается как настоящий администратор: с эмпатией, на «Вы», с заботой о клиенте. Никаких шаблонов.
+                        Понимает контекст и помнит историю общения каждого клиента.</p>
                 </div>
-                <div class="feature-card" data-reveal>
+                <div class="feature-card" data-reveal="right">
                     <div class="feature-number">02</div>
                     <div class="feature-icon-wrap">
                         <div class="feature-icon">📅</div>
                     </div>
                     <h3>Умное расписание</h3>
-                    <p>Не просто записывает — заполняет «дырки» в расписании. Работает с листом ожидания и напоминает о визитах.</p>
+                    <p>Заполняет «дырки» в расписании. Работает с листом ожидания и напоминает о визитах.</p>
                 </div>
-                <div class="feature-card" data-reveal>
+                <div class="feature-card" data-reveal="right">
                     <div class="feature-number">03</div>
                     <div class="feature-icon-wrap">
                         <div class="feature-icon">🛡️</div>
                     </div>
                     <h3>100% безопасность</h3>
-                    <p>Работает на отечественном ИИ (YandexGPT). Данные хранятся в РФ. Полное соответствие 152-ФЗ.</p>
+                    <p>Работает на YandexGPT. Данные хранятся в РФ. Полное соответствие 152-ФЗ.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof -->
+    <section class="social-proof" id="social-proof">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Отзывы</span>
+                <h2>Уже <span class="gradient-text">доверяют нам</span></h2>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card" data-reveal="left">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">«ВизитИИ заменил нам ночного администратора. Теперь 30% записей приходят
+                        после полуночи — раньше мы их просто теряли.»</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">А</div>
+                        <div class="testimonial-info">
+                            <strong>Анна К.</strong>
+                            <span>Сеть салонов красоты, Москва</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card" data-reveal="scale">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">«Клиенты думают, что с ними общается живой человек. Это лучший
+                        комплимент для ИИ. Retention вырос на 18%.»</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">Д</div>
+                        <div class="testimonial-info">
+                            <strong>Дмитрий О.</strong>
+                            <span>Стоматологическая клиника, СПб</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card" data-reveal="right">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">«Настроили за 20 минут. Без программистов, без танцев с бубном. Просто
+                        работает. Окупился за первую неделю.»</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">М</div>
+                        <div class="testimonial-info">
+                            <strong>Марина В.</strong>
+                            <span>Фитнес-студия, Казань</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="logo-ticker">
+                <div class="logo-ticker-track">
+                    <span class="logo-ticker-item">YClients</span>
+                    <span class="logo-ticker-item">Dikidi</span>
+                    <span class="logo-ticker-item">Telegram</span>
+                    <span class="logo-ticker-item">MAX Messenger</span>
+                    <span class="logo-ticker-item">YandexGPT</span>
+                    <span class="logo-ticker-item">1С</span>
+                    <span class="logo-ticker-item">YCLIENTS</span>
+                    <span class="logo-ticker-item">Dikidi</span>
+                    <span class="logo-ticker-item">Telegram</span>
+                    <span class="logo-ticker-item">MAX Messenger</span>
+                    <span class="logo-ticker-item">YandexGPT</span>
+                    <span class="logo-ticker-item">1С</span>
                 </div>
             </div>
         </div>
@@ -147,7 +235,8 @@
                     <div class="step-number">1</div>
                     <div class="step-content">
                         <h3>Подключение</h3>
-                        <p>Регистрируетесь, подключаете свою CRM (YClients, Dikidi или другую). Мы помогаем с настройкой.</p>
+                        <p>Регистрируетесь, подключаете свою CRM (YClients, Dikidi или другую). Мы помогаем с
+                            настройкой.</p>
                     </div>
                 </div>
                 <div class="step" data-reveal>
@@ -178,7 +267,7 @@
                 <h2>Простое и <span class="gradient-text">прозрачное</span> ценообразование</h2>
             </div>
             <div class="pricing-grid">
-                <div class="pricing-card" data-reveal>
+                <div class="pricing-card" data-reveal="left">
                     <div class="pricing-name">Старт</div>
                     <div class="pricing-price">5 000 <span>₽/мес</span></div>
                     <ul class="pricing-features">
@@ -189,8 +278,9 @@
                     </ul>
                     <a href="https://t.me/" class="btn btn-outline" target="_blank">Выбрать</a>
                 </div>
-                <div class="pricing-card pricing-card-popular" data-reveal>
-                    <div class="pricing-badge">Популярный</div>
+                <div class="pricing-card pricing-card-popular" data-reveal="scale">
+                    <div class="pricing-badge"></div>
+                    <div class="pricing-badge-text">Популярный</div>
                     <div class="pricing-name">Бизнес</div>
                     <div class="pricing-price">10 000 <span>₽/мес</span></div>
                     <ul class="pricing-features">
@@ -202,7 +292,7 @@
                     </ul>
                     <a href="https://t.me/" class="btn btn-primary" target="_blank">Выбрать</a>
                 </div>
-                <div class="pricing-card" data-reveal>
+                <div class="pricing-card" data-reveal="right">
                     <div class="pricing-name">Про</div>
                     <div class="pricing-price">15 000 <span>₽/мес</span></div>
                     <ul class="pricing-features">
@@ -222,12 +312,15 @@
     <!-- CTA -->
     <section class="cta-section">
         <div class="container">
-            <div class="cta-card" data-reveal>
+            <div class="cta-card" data-reveal="scale">
                 <h2>Готовы перестать терять клиентов?</h2>
                 <p>Подключите ВизитИИ и начните принимать записи уже сегодня</p>
                 <a href="https://t.me/" class="btn btn-primary btn-lg" target="_blank">
                     <span>Связаться с нами</span>
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10h12m0 0l-4-4m4 4l-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M4 10h12m0 0l-4-4m4 4l-4 4" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
                 </a>
             </div>
         </div>
@@ -268,4 +361,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>
